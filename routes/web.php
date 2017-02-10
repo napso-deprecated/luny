@@ -15,7 +15,8 @@
 
 Route::get('/','PagesController@index');
 Route::get('/pages/create','PagesController@create');
-Route::get('/pages/{id}','PagesController@show');
+Route::get('/pages/{page}','PagesController@show');
 
 Route::post('/pages','PagesController@store');
+Route::post('/pages/{page}/comments','CommentsController@store');
 
