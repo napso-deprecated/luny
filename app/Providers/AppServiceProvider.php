@@ -39,8 +39,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('theme.finder', function ($app) {
 
             $finder = new ThemeViewFinder($app['files'], $app['config']['view.paths']);
-
             $config = $app['config']['luny.theme'];
+
+            // hints for email notifications.
+            $laravelOriginalViewFinder = $this->app['view']->getFinder();
+            $finder->setHints($laravelOriginalViewFinder->getHints());
 
             $finder->setActiveTheme($config['active']);
             return $finder;

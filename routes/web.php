@@ -11,6 +11,7 @@
 |
 */
 
+Auth::routes();
 
 
 Route::get('/','PagesController@index')->name('home');
@@ -19,14 +20,4 @@ Route::get('/pages/{page}','PagesController@show');
 
 Route::post('/pages','PagesController@store');
 Route::post('/pages/{page}/comments','CommentsController@store');
-
-
-
-/*Auth*/
-Route::get('/register','RegistrationController@showRegistrationForm');
-Route::post('/register','RegistrationController@register');
-
-Route::get('/login','LoginController@showLoginForm');
-Route::post('/login','LoginController@login');
-Route::post('/logout', 'LoginController@logout');
 
