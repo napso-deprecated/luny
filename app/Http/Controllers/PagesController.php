@@ -16,8 +16,6 @@ class PagesController extends Controller
 
     public function index()
     {
-
-        // this can be done with queryScopes..lesson 20
         $pages = Page::latest();
 
         if ($month = request('month')) {
@@ -71,33 +69,4 @@ class PagesController extends Controller
 
         return redirect('/');
     }
-
-    /**
-     * GET pages/id/edit
-     * @param $id
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * PATCH /pages/id
-     * @param $id
-     */
-    public function update($id)
-    {
-
-    }
-
-    /**
-     * DELETE /pages/id
-     * @param $id
-     */
-    public function destroy($id)
-    {
-
-    }
-
-
 }
