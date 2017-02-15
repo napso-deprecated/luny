@@ -16,3 +16,8 @@ var theme = 'default';
 
 mix.js('resources/assets/themes/' + theme + '/js/app.js', 'public/js')
    .sass('resources/assets/themes/' + theme + '/sass/app.scss', 'public/css');
+
+mix.js('resources/assets/backend/js/backend.js', 'public/js')
+   .sass('resources/assets/backend/sass/backend.scss', 'public/css');
+
+

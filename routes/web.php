@@ -20,4 +20,5 @@ Route::get('/pages/{page}','PagesController@show');
 
 Route::post('/pages','PagesController@store');
 Route::post('/pages/{page}/comments','CommentsController@store');
-
+Route::get('/admin/users/{users}/confirm','UsersController@confirm')->name('users.confirm');
+Route::resource('/admin/users','UsersController');
