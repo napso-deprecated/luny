@@ -5,15 +5,15 @@
     <h1>{{$page->title}}</h1>
 
     <p>{{$page->body}}</p>
+    @foreach($page->tags as $tag)
+        <a href="/page/{{$tag->slug}}" class="tag">{{$tag->name}}</a>
+    @endforeach
 
-    <div class="comments">
-        <ul class="list-group">
-            @foreach($page->comments as $comment)
-                <li class="list-group-item">
-                    {{ $comment->body }}
-                </li>
-            @endforeach
-        </ul>
+    <div class="markdown">
+        @foreach($page->comments as $comment)
+{{--            {!! $comment->body !!}--}}
+            {!! Markdown::convertToHtml(e($comment->body))!!}
+        @endforeach
     </div>
 
     {{--add a comment --}}
@@ -33,11 +33,26 @@
 
     </div>
 
+
 @endsection
 
 
 
 @section('sidebar')
     @include('layouts.partial.sidebar')
+@endsection
+
+
+@section('scripts')
+    <script>
+        (function () {
+
+            $(document).ready(function () {
+                new SimpleMDE().render();
+            });
+
+
+        })();
+    </script>
 @endsection
 

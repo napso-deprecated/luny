@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\PostDec;
@@ -26,7 +27,19 @@ class PagesController extends Controller
             $pages->whereYear('created_at', $year);
         }
 
-        $pages = $pages->get();
+        $pages = $pages->isPublished()->get();
+
+        return view('pages.index', compact('pages'));
+    }
+
+    /**
+     * Get the all pages that have the specific tag
+     * @param Tag $tag
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tagged(Tag $tag)
+    {
+        $pages = $tag->pages()->latest()->isPublished()->get();
         return view('pages.index', compact('pages'));
     }
 

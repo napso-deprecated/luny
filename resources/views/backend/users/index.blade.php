@@ -1,6 +1,8 @@
 @extends('backend.layouts.backend')
 @section('content')
 
+    @include('layouts.partial.errors')
+
     <a href="{{ route('users.create') }}" class="btn btn-primary">Add user</a>
 
     <table class="table table-hover">

@@ -6,6 +6,10 @@ namespace App;
 class Page extends Model
 {
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 
     public static function getArchives()
     {
@@ -28,14 +32,22 @@ class Page extends Model
             'body' => $body,
             'page_id' => $this->id,
         ]);*/
-
-        $this->comments()->create(compact('body'));
+        $user_id = auth()->id();
+        $this->comments()->create(compact('body', 'user_id'));
 
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    // scopes
+
+    public function scopeIsPublished($query)
+    {
+        return $query->where('published', true);
     }
 
 

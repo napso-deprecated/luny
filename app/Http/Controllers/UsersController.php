@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    protected $user;
 
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->middleware('auth');
+        $this->user = $user;
     }
 
 
@@ -29,11 +31,12 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('backend.users.editcreate', compact('user'));
     }
 
     /**
@@ -44,7 +47,19 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'name' => 'required|max:10',
+            'body' => 'email',
+        ]);
+
+        // we generate a password for the user, and they should do "forgot password" to reset it.
+        User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(uniqid()),
+        ]);
+
+        return back();
     }
 
     /**
@@ -61,40 +76,54 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        return 'form to edit';
+        return view('backend.users.editcreate', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->all());
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect('/admin/users');
     }
 
 
     public function confirm($id)
     {
-        return 'confirm';
+
+        $user = User::findOrFail($id);
+
+        if (intval($id) === auth()->user()->id) {
+            return redirect()->back()->withErrors([
+                'error' => 'You cannot delete yourself'
+            ]);
+        }
+        return view('backend.users.confirm', compact('user'));
     }
 }
