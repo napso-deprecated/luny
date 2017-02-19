@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/backend.css" rel="stylesheet">
+    <link href="/css/simplemde.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -46,5 +47,6 @@
 </div>
 
 <script src="/js/backend.js"></script>
+<script src="/js/simplemde.min.js"></script>
 </body>
 </html>

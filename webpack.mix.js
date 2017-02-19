@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const {mix} = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,9 +15,11 @@ const { mix } = require('laravel-mix');
 var theme = 'default';
 
 mix.js('resources/assets/themes/' + theme + '/js/app.js', 'public/js')
-   .sass('resources/assets/themes/' + theme + '/sass/app.scss', 'public/css');
+    .sass('resources/assets/themes/' + theme + '/sass/app.scss', 'public/css');
 
 mix.js('resources/assets/backend/js/backend.js', 'public/js')
-   .sass('resources/assets/backend/sass/backend.scss', 'public/css');
+    .sass('resources/assets/backend/sass/backend.scss', 'public/css');
 
 
+mix.copy('node_modules/simplemde/dist/simplemde.min.css', 'public/css');
+mix.copy('node_modules/simplemde/dist/simplemde.min.js', 'public/js');

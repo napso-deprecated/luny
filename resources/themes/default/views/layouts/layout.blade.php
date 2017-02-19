@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/blog.css" rel="stylesheet">
+    <link href="/css/simplemde.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -25,6 +26,7 @@
 <body>
 @include('layouts.partial.nav')
 
+<div id="app"></div>
 
 <div class="blog-header">
     <div class="container">
@@ -47,5 +49,7 @@
 </div>
 
 <script src="/js/app.js"></script>
+<script src="/js/simplemde.min.js"></script>
+@yield('scripts')
 </body>
 </html>
