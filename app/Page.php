@@ -50,5 +50,10 @@ class Page extends Model
         return $query->where('published', true);
     }
 
+    public function getRouteKeyName()
+    {
+        return 'uri';
+    }
+
 
 }

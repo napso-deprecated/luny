@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="body" id="body" cols="30" rows="10" class="form-control" required></textarea>
+            <textarea name="body" id="body" cols="30" rows="10" class="form-control" ></textarea>
         </div>
 
 
@@ -34,6 +34,21 @@
 
 
 
+@endsection
+
+
+
+@section('scripts')
+    <script>
+        (function () {
+
+            $(document).ready(function () {
+                new SimpleMDE().render();
+            });
+
+
+        })();
+    </script>
 @endsection
 
 

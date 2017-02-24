@@ -6,13 +6,13 @@
     @foreach($pages as $page)
         <div class="blog-post">
             <h2 class="blog-post-title">
-                <a href="/pages/{{$page->id}}">
+                <a href="/pages/{{$page->uri}}">
                     {{$page->title}}
                 </a>
             </h2>
 
             <p class="blog-post-meta">{{$page->user->name}} {{ $page->created_at->toFormattedDateString() }}</p>
-            {{$page->body}}
+            {!! str_limit(Markdown::convertToHtml($page->body), 1000)!!}
 
         </div>
     @endforeach
