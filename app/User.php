@@ -40,10 +40,58 @@ class User extends Authenticatable
     }
 
 
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'roles_users');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permissions_users');
+    }
+
+
+    // Roles and Permissions
+    // refactoring required
+
+    public function hasRole($role)
+    {
+        if ($this->roles->contains('name', $role)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasPermission(Permission $permission)
+    {
+        return $this->hasPermissionThroughUserRole($permission) || $this->hasPermissionThroughUserPermissions($permission);
+    }
+
+    public function hasPermissionThroughUserPermissions(Permission $permission)
+    {
+        return (bool)$this->permissions->where('name', $permission->name)->count();
+    }
+
+
+    protected function hasPermissionThroughUserRole($permission)
+    {
+        foreach ($permission->roles as $role) {
+            if ($this->roles->contains($role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function getAllPermissions(array $permissions)
+    {
+        return Permission::whereIn('name', $permissions)->get();
     }
 
 
