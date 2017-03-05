@@ -32,6 +32,14 @@ class PagesController extends Controller
         return view('pages.index', compact('pages'));
     }
 
+    public function indexAdmin()
+    {
+        $pages = Page::paginate(10);
+
+        return view('backend.pages.index', compact('pages'));
+    }
+
+
     /**
      * Get the all pages that have the specific tag
      * @param Tag $tag
@@ -81,5 +89,18 @@ class PagesController extends Controller
         ]);
 
         return redirect('/');
+    }
+
+    public function edit(Page $page)
+    {
+        return view('pages.edit', compact('page'));
+    }
+
+    public function update(Request $request, Page $page)
+    {
+        str_replace(" ", "-",$request->get('uri'));
+        $page->update($request->all());
+
+        return redirect()->route('adminPagesIndex');
     }
 }

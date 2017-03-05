@@ -11,16 +11,34 @@
 |
 */
 
+use App\User;
+
 Auth::routes();
 
 
-Route::get('/','PagesController@index')->name('home');
-Route::get('/pages/create','PagesController@create')->name('createPageForm');
-Route::post('/pages','PagesController@store');
-Route::get('/pages/{page}','PagesController@show');
-Route::get('/page/{tag}','PagesController@tagged');
+//*/Route::get('/', function (\Illuminate\Http\Request $request) {
+    /* @var User $user */
+//    $user = $request->user();
 
-Route::post('/pages/{page}/comments','CommentsController@store');
-Route::get('/admin/users/{users}/confirm','UsersController@confirm')->name('users.confirm');
+//    dd($user->can('delete posts'));
+//    $user->givePermissionTo(['edit posts','delete posts']);
 
-Route::resource('/admin/users','UsersController');
+//    return response('good');
+//});
+
+
+Route::get('/', 'PagesController@index')->name('home');
+Route::get('/pages/create', 'PagesController@create')->name('createPageForm');
+Route::post('/pages', 'PagesController@store');
+Route::post('/pages/{page}', 'PagesController@update');
+Route::get('/pages/{page}/edit', 'PagesController@edit')->name('editPageForm');;
+Route::get('/pages/{page}', 'PagesController@show')->name('pages.show');
+Route::get('/page/{tag}', 'PagesController@tagged');
+
+Route::post('/pages/{page}/comments', 'CommentsController@store');
+Route::get('/admin/users/{users}/confirm', 'UsersController@confirm')->name('users.confirm');
+
+Route::resource('/admin/users', 'UsersController');
+
+// show all pages in admin dashboard
+Route::get('/admin/pages', 'PagesController@indexAdmin')->name('adminPagesIndex');

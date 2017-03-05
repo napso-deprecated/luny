@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -89,9 +90,48 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @param array $permissions
+     * @return Collection
+     */
     protected function getAllPermissions(array $permissions)
     {
         return Permission::whereIn('name', $permissions)->get();
+    }
+
+    public function givePermissionTo(...$permissions)
+    {
+        $permissionsGiven = array_flatten($permissions);
+        $permissionsFound = $this->getAllPermissions($permissionsGiven);
+
+        if ($permissionsFound->isEmpty() || count($permissionsGiven) !== count($permissionsFound)) {
+            return false;
+        }
+
+        foreach ($permissionsFound as $permission) {
+            if (!$this->permissions->contains($permission)) {
+                $this->permissions()->save($permission);
+            }
+        }
+
+        return true;
+
+    }
+
+    public function withdrawPermissionTo(...$permissions)
+    {
+        $permissions = $this->getAllPermissions(array_flatten($permissions));
+
+        $this->permissions()->detach($permissions);
+
+        return $this;
+    }
+
+    public function updatePermissions(...$permissions)
+    {
+        $this->permissions()->detach();
+
+        return $this->givePermissionTo($permissions);
     }
 
 

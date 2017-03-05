@@ -29,7 +29,7 @@
 <div class="blog-header">
     <div class="container">
         <h1 class="blog-title">Admin theme</h1>
-        <p class="lead blog-description">This is the admin theme</p>
+        <p class="lead blog-description">Luny backend dashboard</p>
     </div>
 </div>
 

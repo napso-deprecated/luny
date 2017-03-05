@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 @section('content')
 
-    <a href="{{route('createPageForm')}}" class="btn btn-primary">Add new Page</a>
+    @role('admin')
+        <a href="{{route('createPageForm')}}" class="btn btn-primary">Add new Page</a>
+    @endrole
 
     @foreach($pages as $page)
         <div class="blog-post">
