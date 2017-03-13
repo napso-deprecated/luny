@@ -85,6 +85,7 @@ class PagesController extends Controller
             'title' => request('title'),
             'body' => request('body'),
             'uri' => request('uri'),
+            'published' => request('published'),
             'user_id' => auth()->id(),
         ]);
 

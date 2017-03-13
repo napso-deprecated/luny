@@ -28,7 +28,6 @@
             <textarea name="body" id="body" cols="30" rows="10" class="form-control" required></textarea>
         </div>
 
-
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 
