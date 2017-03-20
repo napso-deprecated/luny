@@ -48,5 +48,6 @@
 
 <script src="/js/backend.js"></script>
 <script src="/js/simplemde.min.js"></script>
+@yield('scripts')
 </body>
 </html>

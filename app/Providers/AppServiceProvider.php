@@ -6,6 +6,7 @@ use App\luny\ThemeViewFinder;
 use App\Page;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Napso\Lunytags\Models\Tag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('archives', Page::getArchives());
         });
 
+
+        view()->composer('layouts.partial.tags', function ($view) {
+            $view->with('tags', Tag::all());
+        });
 
         $this->app['view']->setFinder($this->app['theme.finder']);
     }
