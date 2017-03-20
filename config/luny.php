@@ -3,6 +3,6 @@
 
 return [
     'theme' => [
-        'active'=>'default',
+        'active'=>'clean',
     ]
 ];
