@@ -11,7 +11,10 @@
 |
 */
 
+// Users
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Permission;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -22,3 +25,64 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+
+// First User
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\User::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'name' => 'admin admin',
+        'email' => 'admin@example.org',
+        'password' => bcrypt('admin'),
+        'remember_token' => str_random(10),
+    ];
+}, 'adam');
+
+
+// Pages
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Page::class, function (Faker\Generator $faker) {
+
+    $title = $faker->sentence;
+
+    return [
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
+        },
+        'title' => $title,
+        'uri' => str_slug($title),
+        'image' => $faker->image,
+        'body' => $faker->paragraph(25),
+        'published' => $faker->boolean(90),
+    ];
+});
+
+
+// Comments
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+
+    $title = $faker->sentence;
+
+    return [
+        'user_id' => rand(1, 11),
+        'page_id' => function () {
+            return factory('App\User')->create()->id;
+        },
+        'body' => $faker->paragraph(5),
+    ];
+});
+
+
+// Tags
+$factory->define(Napso\Lunytags\Models\Tag::class, function (Faker\Generator $faker) {
+    $name = $faker->unique()->colorName;
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
+    ];
+});
+
