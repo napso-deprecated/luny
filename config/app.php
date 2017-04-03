@@ -170,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        Napso\Lunytags\LunyTagsServiceProvider::class,
 
         /*
          * Application Service Providers...

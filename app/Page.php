@@ -3,13 +3,12 @@
 namespace App;
 
 
+use Napso\Lunytags\TaggableTrait;
+
 class Page extends Model
 {
 
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+    use TaggableTrait;
 
     public static function getArchives()
     {
@@ -25,16 +24,16 @@ class Page extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function addComment($body)
+    public function addComment($body, $userId)
     {
 
         /*Comment::create([
             'body' => $body,
             'page_id' => $this->id,
         ]);*/
-        $user_id = auth()->id();
+        $user_id = $userId;
         $this->comments()->create(compact('body', 'user_id'));
-
+        // redirect ?
     }
 
     public function user()
