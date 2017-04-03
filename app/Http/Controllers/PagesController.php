@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Page;
-use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Napso\Lunytags\Models\Tag;
 use PhpParser\Node\Expr\PostDec;
 
 class PagesController extends Controller
@@ -27,7 +27,8 @@ class PagesController extends Controller
             $pages->whereYear('created_at', $year);
         }
 
-        $pages = $pages->isPublished()->get();
+        $pages = $pages->isPublished()->paginate(10);
+
 
         return view('pages.index', compact('pages'));
     }
@@ -52,7 +53,7 @@ class PagesController extends Controller
     }
 
     /**
-     * GET /pages/id
+     * GET /pages/uri
      * @param Page $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -67,7 +68,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('pages.create');
+        return view('backend.pages.create');
     }
 
     /**
@@ -77,14 +78,14 @@ class PagesController extends Controller
     {
 
         $this->validate(request(), [
-            'title' => 'required|max:20',
+            'title' => 'required|max:40',
             'body' => 'required',
         ]);
 
         Page::create([
             'title' => request('title'),
             'body' => request('body'),
-            'uri' => request('uri'),
+            'uri' => str_slug(request('uri')),
             'published' => request('published'),
             'user_id' => auth()->id(),
         ]);

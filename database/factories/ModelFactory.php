@@ -39,7 +39,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => bcrypt('admin'),
         'remember_token' => str_random(10),
     ];
-}, 'adam');
+}, 'admin');
 
 
 // Pages
@@ -61,7 +61,7 @@ $factory->define(App\Page::class, function (Faker\Generator $faker) {
 });
 
 
-// Comments
+// Comments that belongs to the first 10 users
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Comment::class, function (Faker\Generator $faker) {
 
@@ -70,7 +70,7 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
     return [
         'user_id' => rand(1, 11),
         'page_id' => function () {
-            return factory('App\User')->create()->id;
+            return factory('App\Page')->create()->id;
         },
         'body' => $faker->paragraph(5),
     ];

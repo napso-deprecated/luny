@@ -33,14 +33,14 @@
         <a href="/page/{{$tag->slug}}" class="tag">{{$tag->name}}</a>
     @endforeach
 
-    {{--<div class="markdown">
+    <div class="markdown">
         @foreach($page->comments as $comment)
-            --}}{{--            {!! $comment->body !!}--}}{{--
+                        {!! $comment->body !!}
             <h2>{!! Markdown::convertToHtml(e($comment->body))!!}</h2>
             From:
             <small>{{$comment->user->name}}</small>
         @endforeach
-    </div>--}}
+    </div>
 
 
     {{--@if (Auth::guest())
