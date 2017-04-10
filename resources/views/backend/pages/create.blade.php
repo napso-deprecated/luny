@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <label for="uri">URI:</label>
-            <input type="text" class="form-control" id="uri" name="uri" required>
+            <input type="text" class="form-control" id="uri" name="uri" required value="{{old('title')}}">
         </div>
 
         <div class="form-group">
@@ -30,12 +30,12 @@
 
         <div class="form-group">
             <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+            <input type="text" class="form-control" id="title" name="title" required value="{{old('title')}}">
         </div>
 
         <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
+            <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{old('body')}}</textarea>
         </div>
 
         @include('layouts.partial.tags')

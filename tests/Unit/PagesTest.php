@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Page;
+use Napso\Lunytags\LunyTagsServiceProvider;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -42,4 +43,5 @@ class PagesTest extends TestCase
 
         $this->assertCount(2, $page->comments);
     }
+
 }

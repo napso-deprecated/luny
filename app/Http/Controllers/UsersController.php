@@ -48,7 +48,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|max:10',
+            'name' => 'required|max:20',
             'body' => 'email',
         ]);
 
@@ -59,7 +59,7 @@ class UsersController extends Controller
             'password' => bcrypt(uniqid()),
         ]);
 
-        return back();
+        return redirect('/admin/users');
     }
 
     /**
@@ -95,9 +95,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // get the roles in the request and also update them
+        $this->validate(request(), [
+            'name' => 'required|max:20',
+            'body' => 'email',
+        ]);
+
         $user->update($request->all());
 
-        return back();
+        return redirect('/admin/users');
     }
 
     /**

@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
                 'error' => 'Object Not found'
             ]);
         }
-        if(app()->environment() === 'testing') throw $exception;
+//        if(app()->environment() === 'testing') throw $exception;
         return parent::render($request, $exception);
     }
 

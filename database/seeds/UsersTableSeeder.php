@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $admin = factory(User::class, 'admin')->create();
         // create 10 users
         $users = factory(User::class, 10)->create();
 

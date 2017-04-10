@@ -35,15 +35,16 @@
 
     <div class="markdown">
         @foreach($page->comments as $comment)
-                        {!! $comment->body !!}
-            <h2>{!! Markdown::convertToHtml(e($comment->body))!!}</h2>
-            From:
-            <small>{{$comment->user->name}}</small>
+
+            <small><a href="#">{{$comment->user->name}}</a></small>
+
+            <p>{!! Markdown::convertToHtml(e($comment->body))!!}</p>
+            <hr/>
         @endforeach
     </div>
 
 
-    {{--@if (Auth::guest())
+    @if (Auth::guest())
         <p>Please Login to write a Comment...</p>
     @else
         <div class="card">
@@ -59,7 +60,7 @@
             </form>
 
         </div>
-    @endif--}}
+    @endif
 
 
 

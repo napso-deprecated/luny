@@ -41,14 +41,14 @@ Auth::routes();
 //    dd($page->tags);
 //});
 
- /* Pages */
+/* Pages */
 
 // index
 Route::get('/', 'PagesController@index')->name('home');
-// show
-Route::get('/pages/{page}', 'PagesController@show')->name('pages.show');
 // create
 Route::get('/pages/create', 'PagesController@create')->name('createPageForm');
+// show
+Route::get('/pages/{page}', 'PagesController@show')->name('pages.show');
 // store
 Route::post('/pages', 'PagesController@store');
 // update
@@ -57,15 +57,22 @@ Route::post('/pages/{page}', 'PagesController@update');
 Route::get('/pages/{page}/edit', 'PagesController@edit')->name('editPageForm');;
 
 
- /* Comments */
+/* Comments */
 Route::post('/pages/{page}/comments', 'CommentsController@store');
-
 
 
 Route::post('/tags', 'TagsController@store');
 Route::get('/page/{tag}', 'PagesController@tagged');
 Route::get('/tags/create', 'TagsController@create')->name('createTagForm');
 Route::get('/admin/users/{users}/confirm', 'UsersController@confirm')->name('users.confirm');
-Route::resource('/admin/users', 'UsersController');
+
+
+
 // show all pages in admin dashboard
 Route::get('/admin/pages', 'PagesController@indexAdmin')->name('adminPagesIndex');
+
+// Admin routes
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('users', 'UsersController');
+});
