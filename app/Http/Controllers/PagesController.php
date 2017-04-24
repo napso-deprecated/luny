@@ -29,7 +29,6 @@ class PagesController extends Controller
 
         $pages = $pages->isPublished()->paginate(10);
 
-
         return view('pages.index', compact('pages'));
     }
 
@@ -78,7 +77,7 @@ class PagesController extends Controller
     {
 
         $this->validate(request(), [
-            'title' => 'required|max:40',
+            'title' => 'required|max:50',
             'body' => 'required',
         ]);
 

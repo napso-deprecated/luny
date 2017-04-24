@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\RolesManager;
 use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
     protected $user;
+    protected $rolesManager;
 
-    public function __construct(User $user)
+    public function __construct(User $user, RolesManager $rolesManager)
     {
         $this->middleware('auth');
         $this->user = $user;
+        $this->rolesManager = $rolesManager;
     }
 
 
@@ -95,11 +98,16 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // get the roles in the request and also update them
+
         $this->validate(request(), [
             'name' => 'required|max:20',
             'body' => 'email',
+            'roles.*' => 'in:user,admin,super admin,test',
+        ], [
+            'roles.*' => 'You have choosen a non valid role to be applied for the user'
         ]);
+
+        $this->rolesManager->refreshAllRoles($request->get('roles'), $user);
 
         $user->update($request->all());
 

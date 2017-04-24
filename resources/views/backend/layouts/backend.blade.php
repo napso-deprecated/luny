@@ -29,7 +29,9 @@
 <div class="blog-header">
     <div class="container">
         <h1 class="blog-title">Admin theme</h1>
-        <p class="lead blog-description">Luny backend dashboard</p>
+        <a href="{{ route('users.index') }}" class="btn btn-info">Manage Users</a>
+        <a href="{{ route('adminPagesIndex') }}" class="btn btn-info">Manage Pages</a>
+        <a href="{{ route('roles.index') }}" class="btn btn-info">Manage Roles</a>
     </div>
 </div>
 

@@ -61,18 +61,29 @@ Route::get('/pages/{page}/edit', 'PagesController@edit')->name('editPageForm');;
 Route::post('/pages/{page}/comments', 'CommentsController@store');
 
 
-Route::post('/tags', 'TagsController@store');
+//Route::post('/tags', 'TagsController@store');
+//Route::get('/tags/create', 'TagsController@create')->name('createTagForm');
+
+
+
 Route::get('/page/{tag}', 'PagesController@tagged');
-Route::get('/tags/create', 'TagsController@create')->name('createTagForm');
 Route::get('/admin/users/{users}/confirm', 'UsersController@confirm')->name('users.confirm');
 
 
+Route::get('/admin', 'AdminController@index')->name('adminDashboard');
 
 // show all pages in admin dashboard
 Route::get('/admin/pages', 'PagesController@indexAdmin')->name('adminPagesIndex');
+
 
 // Admin routes
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('users', 'UsersController');
+    Route::get('roles/{role}/confirm', 'RolesController@confirm')->name('roles.confirm');
+    Route::resource('roles', 'RolesController');
 });
+
+
+
+

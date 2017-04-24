@@ -10,7 +10,7 @@
         {{ csrf_field() }}
 
 
-        @include('layouts.partial.errors')
+        @include('backend.layouts.partial.errors')
 
 
         <div class="form-group">
@@ -28,12 +28,13 @@
 
         <h4>User Roles</h4>
         @foreach($roles as $role)
+
             @if($user->hasRole($role->name))
-                <input id="role" type="checkbox" name="roles[{{$role->name}}]" value="1" checked/>
+                <input id="{{$role->name}}" type="checkbox" name="roles[]" value="{{$role->name}}" checked/>
             @else
-                <input id="role" type="checkbox" name="roles[{{$role->name}}]" value="1"/>
+                <input id="{{$role->name}}" type="checkbox" name="roles[]" value="{{$role->name}}"/>
             @endif
-                <label for="role">{{$role->name}}</label>
+            <label for="role">{{$role->name}}</label>
             <br/>
         @endforeach
 
